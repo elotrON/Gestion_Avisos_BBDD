@@ -8,6 +8,7 @@ class AvisosBbddApplicationTests {
 
 	@Test
 	void contextLoads() {
+
 	}
 
 }

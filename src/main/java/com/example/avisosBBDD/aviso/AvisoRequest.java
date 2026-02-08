@@ -1,5 +1,7 @@
 package com.example.avisosBBDD.aviso;
 
+import com.example.avisosBBDD.aviso.model.Nivel;
+
 public class AvisoRequest {
     private String titulo;
     private String mensaje;

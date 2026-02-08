@@ -1,5 +1,8 @@
-package com.example.avisosBBDD.aviso;
+package com.example.avisosBBDD.aviso.service;
 
+import com.example.avisosBBDD.aviso.AvisoRequest;
+import com.example.avisosBBDD.aviso.model.Nivel;
+import com.example.avisosBBDD.aviso.entity.Aviso;
 import com.example.avisosBBDD.aviso.repository.AvisoRepository;
 import org.springframework.stereotype.Service;
 import java.util.*;

@@ -1,5 +1,8 @@
-package com.example.avisosBBDD.aviso;
+package com.example.avisosBBDD.aviso.controller;
 
+import com.example.avisosBBDD.aviso.AvisoRequest;
+import com.example.avisosBBDD.aviso.service.AvisoService;
+import com.example.avisosBBDD.aviso.entity.Aviso;
 import org.springframework.web.bind.annotation.*;
 import java.util.*;
 

@@ -1,4 +1,4 @@
-package com.example.avisosBBDD.aviso;
+package com.example.avisosBBDD.aviso.model;
 
 public enum Nivel {
     INFO,

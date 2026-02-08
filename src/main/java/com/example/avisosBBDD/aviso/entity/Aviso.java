@@ -1,5 +1,6 @@
-package com.example.avisosBBDD.aviso;
+package com.example.avisosBBDD.aviso.entity;
 
+import com.example.avisosBBDD.aviso.model.Nivel;
 import jakarta.persistence.*;
 
 @Entity
