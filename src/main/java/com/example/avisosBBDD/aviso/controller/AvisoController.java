@@ -1,8 +1,10 @@
 package com.example.avisosBBDD.aviso.controller;
 
-import com.example.avisosBBDD.aviso.AvisoRequest;
+import com.example.avisosBBDD.aviso.model.AvisoRequest;
+import com.example.avisosBBDD.aviso.model.AvisoResponse;
 import com.example.avisosBBDD.aviso.service.AvisoService;
 import com.example.avisosBBDD.aviso.entity.Aviso;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
@@ -23,7 +25,7 @@ public class AvisoController {
      * @return
      */
     @PostMapping("/avisos")
-    public Aviso crear(@RequestBody AvisoRequest avisoRequest){
+    public Aviso crear(@Valid @RequestBody AvisoRequest avisoRequest){
         return avisoService.crear(avisoRequest);
     }
 
@@ -50,7 +52,7 @@ public class AvisoController {
      * @return El objeto de tipo Aviso
      */
     @GetMapping("/avisos/{id}")
-    public Aviso getAviso(@PathVariable int id){
+    public AvisoResponse getAviso(@PathVariable int id){
 
         return avisoService.obtener(id);
     }
@@ -60,12 +62,12 @@ public class AvisoController {
      * REEMPLAZA EL AVISO COMPLETO (EXCEPTO EL ID)
      * PUT /avisos/{id}
      *
-     *  @param id
+     * @param id
      * @param avisoRequest
      * @return
      */
     @PutMapping("/avisos/{id}")
-    public Aviso reemplazarAviso(@PathVariable int id, @RequestBody AvisoRequest avisoRequest){
+    public AvisoResponse reemplazarAviso(@PathVariable int id, @Valid @RequestBody AvisoRequest avisoRequest){
         return avisoService.reemplazar(id, avisoRequest);
     }
 
@@ -78,7 +80,7 @@ public class AvisoController {
      * @return
      */
     @PatchMapping("/avisos/{id}")
-    public Aviso modificarAviso(@PathVariable int id, @RequestBody AvisoRequest avisoRequest){
+    public AvisoResponse modificarAviso(@PathVariable int id, @RequestBody AvisoRequest avisoRequest){
         return avisoService.reemplazoParcial(id, avisoRequest);
     }
 

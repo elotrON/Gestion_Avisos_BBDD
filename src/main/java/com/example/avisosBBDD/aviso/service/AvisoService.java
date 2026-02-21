@@ -1,6 +1,7 @@
 package com.example.avisosBBDD.aviso.service;
 
-import com.example.avisosBBDD.aviso.AvisoRequest;
+import com.example.avisosBBDD.aviso.model.AvisoRequest;
+import com.example.avisosBBDD.aviso.model.AvisoResponse;
 import com.example.avisosBBDD.aviso.model.Nivel;
 import com.example.avisosBBDD.aviso.entity.Aviso;
 import com.example.avisosBBDD.aviso.repository.AvisoRepository;
@@ -75,12 +76,12 @@ public class AvisoService {
      * @param id Entregar el id del registro a modificar
      * @param nuevoNivel Nuevo valor de Nivel
      */
-    public Aviso cambiarNivel(Integer id, Nivel nuevoNivel){
+    public AvisoResponse cambiarNivel(Integer id, Nivel nuevoNivel){
         Aviso aviso = bbdd.findById(id).orElse(null);
         if (aviso == null ) return null;
 
         aviso.setNivel(nuevoNivel);
-        return bbdd.save(aviso);
+        return toResponse(bbdd.save(aviso));
     }
 
     /**
@@ -88,8 +89,11 @@ public class AvisoService {
      *
      * @param id ID de la tarea deseada
      */
-    public Aviso obtener(int id){
-        return bbdd.findById(id).orElse(null);
+    public AvisoResponse obtener(int id){
+        Aviso aviso = bbdd.findById(id).orElse(null);
+        if(aviso == null) return null;
+
+        return  toResponse(aviso);
     }
 
     /**
@@ -108,14 +112,14 @@ public class AvisoService {
      * @param avisoRequest
      * @return
      */
-    public Aviso reemplazar(int id, AvisoRequest avisoRequest){
+    public AvisoResponse reemplazar(int id, AvisoRequest avisoRequest){
         Aviso aviso = bbdd.findById(id).orElse(null);
         if(aviso == null) return null;
 
         aviso.setNivel(avisoRequest.getNivel());
         aviso.setTitulo(avisoRequest.getTitulo());
         aviso.setMensaje(avisoRequest.getMensaje());
-        return bbdd.save(aviso);
+        return toResponse(bbdd.save(aviso));
 
     }
 
@@ -126,7 +130,7 @@ public class AvisoService {
      * @param avisoRequest
      * @return
      */
-    public Aviso reemplazoParcial(int id, AvisoRequest avisoRequest){
+    public AvisoResponse reemplazoParcial(int id, AvisoRequest avisoRequest){
         Aviso aviso = bbdd.findById(id).orElse(null);
         if (aviso == null) return null;
 
@@ -139,6 +143,18 @@ public class AvisoService {
         if(avisoRequest.getNivel() != null)
             aviso.setNivel(avisoRequest.getNivel());
 
-        return bbdd.save(aviso);
+        return toResponse(bbdd.save(aviso));
     }
+
+    public AvisoResponse toResponse(Aviso aviso){
+        AvisoResponse r = new AvisoResponse();
+        r.setId(aviso.getId());
+        r.setTitulo(aviso.getTitulo());
+        r.setMensaje(aviso.getMensaje());
+        r.setNivel(aviso.getNivel());
+        r.setActivo(aviso.isActivo());
+
+        return r;
+    }
+
 }

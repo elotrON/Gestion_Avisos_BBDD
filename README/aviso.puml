@@ -1,0 +1,20 @@
+@startuml
+class Aviso {
+  - id : Integer
+  - titulo : String
+  - mensaje : String
+  - nivel : Nivel
+  - activo : boolean
+
+  + getId() : Integer
+  + setId(id : Integer) : void
+  + getTitulo() : String
+  + setTitulo(titulo : String) : void
+  + getMensaje() : String
+  + setMensaje(mensaje : String) : void
+  + getNivel() : Nivel
+  + setNivel(nivel : Nivel) : void
+  + isActivo() : boolean
+  + setActivo(activo : boolean) : void
+}
+@enduml
