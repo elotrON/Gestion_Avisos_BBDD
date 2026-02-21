@@ -24,7 +24,7 @@ public class AvisoService {
      * @param avisoRequest Datos del usuario para crear el aviso (titulo, mensaje, nivel)
      * @return El aviso creado y guardado en BBDD
      */
-    public Aviso crear(AvisoRequest avisoRequest){
+    public AvisoResponse crear(AvisoRequest avisoRequest){
         Aviso aviso = new Aviso();
 
         aviso.setMensaje(avisoRequest.getMensaje());
@@ -32,7 +32,7 @@ public class AvisoService {
         aviso.setTitulo(avisoRequest.getTitulo());
         aviso.setActivo(true);
 
-        return bbdd.save(aviso);
+        return toResponse(bbdd.save(aviso));
     }
 
     /**
@@ -40,9 +40,12 @@ public class AvisoService {
      *
      * @return Devuelve la lista de todos los avisos (sin filtro)
      */
-    public List<Aviso> listar(){
+    public List<AvisoResponse> listar(){
         List<Aviso> avisos = bbdd.findAll();
-        return avisos;
+        return avisos
+                .stream()
+                .map(this::toResponse)
+                .toList();
     }
 
     /**
@@ -50,8 +53,11 @@ public class AvisoService {
      *
      * @return Devuelve una lista con los avisos.
      */
-    public List<Aviso> listarActivos(){
-        return bbdd.findByActivoTrue();
+    public List<AvisoResponse> listarActivos(){
+        return bbdd.findByActivoTrue()
+                .stream()
+                .map(this::toResponse)
+                .toList();
     }
 
 

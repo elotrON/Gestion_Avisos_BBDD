@@ -25,7 +25,7 @@ public class AvisoController {
      * @return
      */
     @PostMapping("/avisos")
-    public Aviso crear(@Valid @RequestBody AvisoRequest avisoRequest){
+    public AvisoResponse crear(@Valid @RequestBody AvisoRequest avisoRequest){
         return avisoService.crear(avisoRequest);
     }
 
@@ -37,7 +37,7 @@ public class AvisoController {
      * @return
      */
     @GetMapping("/avisos")
-    public List<Aviso> obtenerAvisos(@RequestParam(required = false) Boolean activos){
+    public List<AvisoResponse> obtenerAvisos(@RequestParam(required = false) Boolean activos){
         if(Boolean.TRUE.equals(activos)){
             return avisoService.listarActivos();
         }
