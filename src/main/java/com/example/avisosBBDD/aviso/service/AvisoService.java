@@ -7,6 +7,7 @@ import com.example.avisosBBDD.aviso.entity.Aviso;
 import com.example.avisosBBDD.aviso.repository.AvisoRepository;
 import org.springframework.stereotype.Service;
 import java.util.*;
+import java.util.stream.Stream;
 
 
 @Service
@@ -41,11 +42,21 @@ public class AvisoService {
      * @return Devuelve la lista de todos los avisos (sin filtro)
      */
     public List<AvisoResponse> listar(){
+
+        // Obtener lista de entidades desde la base de datos
         List<Aviso> avisos = bbdd.findAll();
-        return avisos
-                .stream()
-                .map(this::toResponse)
-                .toList();
+
+        // Convertir la lista en un Stream
+        Stream<Aviso> streamAvisos = avisos.stream();
+
+        // Transformar cada Aviso en AvisoResponse
+        Stream<AvisoResponse> streamResponses = streamAvisos.map(aviso -> toResponse(aviso));
+
+        // Convertir el Stream resultante en una nueva lista
+        List<AvisoResponse> resultado = streamResponses.toList();
+
+        // Devolver la lista transformada
+        return resultado;
     }
 
     /**
@@ -54,7 +65,7 @@ public class AvisoService {
      * @return Devuelve una lista con los avisos.
      */
     public List<AvisoResponse> listarActivos(){
-        return bbdd.findByActivoTrue()
+        return bbdd.findByActivo(true)
                 .stream()
                 .map(this::toResponse)
                 .toList();
