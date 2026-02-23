@@ -2,6 +2,7 @@ package com.example.avisosBBDD.aviso.entity;
 
 import com.example.avisosBBDD.aviso.model.Nivel;
 import jakarta.persistence.*;
+import com.example.avisosBBDD.aviso.entity.Usuario;
 
 @Entity
 @Table(name = "avisos")
@@ -10,7 +11,6 @@ public class Aviso {
     @Id // le indica a JPA que este es el valor del ID de la BBDD
     @GeneratedValue(strategy = GenerationType.IDENTITY)     //@GeneratedValue --> indica al Spring que ese valor no lo genera el
     private Integer id;
-
 
     @Column(nullable = false)
     private String titulo;
@@ -25,7 +25,19 @@ public class Aviso {
     @Column(nullable = false)
     private boolean activo;
 
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", nullable = false)
+    @Column (nullable = false)
+    private Usuario usuario;
 
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
     public Integer getId() { return id; }
 
     public void setId(Integer id) { this.id = id; }
