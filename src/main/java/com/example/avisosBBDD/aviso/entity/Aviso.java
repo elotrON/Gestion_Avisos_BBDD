@@ -27,7 +27,6 @@ public class Aviso {
 
     @ManyToOne
     @JoinColumn(name = "usuario_id", nullable = false)
-    @Column (nullable = false)
     private Usuario usuario;
 
 

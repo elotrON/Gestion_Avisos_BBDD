@@ -14,12 +14,27 @@ public class AvisoRequest {
     @NotNull
     private Nivel nivel = Nivel.INFO;
 
+    @NotNull
+    private Integer userId = 0;
+
+
     public AvisoRequest(){}
 
-    public AvisoRequest(String mensaje, Nivel nivel, String titulo) {
+    public AvisoRequest(String mensaje, Nivel nivel, String titulo, Integer userId) {
         this.mensaje = mensaje;
         this.nivel = nivel;
         this.titulo = titulo;
+        this.userId = userId;
+    }
+
+
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getTitulo() {

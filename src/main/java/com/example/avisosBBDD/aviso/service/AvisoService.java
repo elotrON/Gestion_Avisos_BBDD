@@ -1,10 +1,12 @@
 package com.example.avisosBBDD.aviso.service;
 
+import com.example.avisosBBDD.aviso.entity.Usuario;
 import com.example.avisosBBDD.aviso.model.AvisoRequest;
 import com.example.avisosBBDD.aviso.model.AvisoResponse;
 import com.example.avisosBBDD.aviso.model.Nivel;
 import com.example.avisosBBDD.aviso.entity.Aviso;
 import com.example.avisosBBDD.aviso.repository.AvisoRepository;
+import com.example.avisosBBDD.aviso.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
 import java.util.*;
 import java.util.stream.Stream;
@@ -13,9 +15,11 @@ import java.util.stream.Stream;
 @Service
 public class AvisoService {
     private final AvisoRepository bbdd;
+    private final UsuarioRepository ur;
 
-    public AvisoService(AvisoRepository bbdd) {
+    public AvisoService(AvisoRepository bbdd, UsuarioRepository ur) {
         this.bbdd = bbdd;
+        this.ur = ur;
     }
 
     /**
@@ -32,6 +36,14 @@ public class AvisoService {
         aviso.setNivel(avisoRequest.getNivel());
         aviso.setTitulo(avisoRequest.getTitulo());
         aviso.setActivo(true);
+
+
+        Usuario usuario = ur
+                .findById(avisoRequest.getUserId())
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+
+        aviso.setUsuario(usuario);
 
         return toResponse(bbdd.save(aviso));
     }
